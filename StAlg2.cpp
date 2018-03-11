@@ -1,4 +1,5 @@
 //used libraries
+
 #include <fstream>//file stream
 #include <iostream>//input, output stream
 #include <conio.h>//getch
@@ -28,11 +29,11 @@ public:
 		return value;
 	}
 
-	int setKey(int key){//key setter
+	void setKey(int key){//key setter
 		this->key=key;
 	}
 
-	int setValue(int value){//value setter
+	void setValue(int value){//value setter
 		this->value=value;
 	}
 };
@@ -180,9 +181,7 @@ public:
 						}
 						else{
 							if (root->left->left!=NULL && root->left->right!=NULL) {
-								//detect subtrees height and work with higher tree(or maybe with more elements)
-								//find lowest in the left sub-tree (or biggest in right) and make it new parent. deal with its child(it can be only one(right for right sub-tree) as usual
-								Node* currentRoot=root->left->right;
+								Node* currentRoot = root->left->right;
 								Node* previousRoot=root->left;
 								while (currentRoot->left!=NULL){
 									previousRoot=currentRoot;
@@ -196,8 +195,15 @@ public:
 								}
 								else
 									previousRoot->left=NULL;
-								root->left->right=temp->right;
-
+								if (previousRoot==temp) {
+									root->left->right=temp->right->right;
+								}
+								else
+									root->left->right=temp->right;
+								//root->left->right=temp->right;
+								temp=NULL;
+								currentRoot=NULL;
+								previousRoot=NULL;
 								delete temp;
 								delete currentRoot;
 								delete previousRoot;
@@ -245,7 +251,36 @@ public:
 							}
 							else{
 								if (root->right->left!=NULL && root->right->right!=NULL) {
+									Node* currentRoot = root->right->right;
+									Node* previousRoot=root->right;
+									while (currentRoot->left!=NULL){
+										previousRoot=currentRoot;
+										currentRoot=currentRoot->left;
+									}
+									Node* temp=root->right;
+									root->right=currentRoot;
+									root->right->left=temp->left;
+									//if (previousRoot!=temp) {
 
+
+										if (currentRoot->right!=NULL) {
+											previousRoot->left=currentRoot->right;
+										}
+										else
+											previousRoot->left=NULL;
+									//}
+									if (previousRoot==temp) {
+										root->right->right=temp->right->right;
+									}
+									else
+										root->right->right=temp->right;
+									temp=NULL;
+									currentRoot=NULL;
+									previousRoot=NULL;
+									delete temp;
+									delete currentRoot;
+									delete previousRoot;
+									delete data;
 								}
 							}
 						}
@@ -333,6 +368,7 @@ public:
 //		remove(4);
 //		remove(42);
 		remove(5);
+		remove(20);
 
 //		std::cout<<searchByValue(23)<<std::endl;
 //		std::cout<<searchByValue(0)<<std::endl;
@@ -500,7 +536,7 @@ int main()//main function
 	outputMainMenu();//show menu of available commands
 	while(operationCode!=48)//repeat until exit
 	{
-		operationCode=getch();//get command
+		operationCode=_getch();//get command
 		system("cls");//clear console screen
 		switch (operationCode)//command choice
 		{
@@ -1000,7 +1036,7 @@ short treeTypeSelect(short treeType)//sorting data
 	outputTreeTypeMenu(treeType);//show menu of available commands
 	while(OperationCode<48 || OperationCode>57)//repeat until exit
 	{
-		OperationCode=getch();//get command
+		OperationCode=_getch();//get command
 	}
     system("cls");//clear console screen
 	outputTreeTypeMenu(OperationCode-48);//show menu of available commands
