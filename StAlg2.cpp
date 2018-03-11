@@ -194,6 +194,8 @@ public:
 								if (currentRoot->right!=NULL) {
 									previousRoot->left=currentRoot->right;
 								}
+								else
+									previousRoot->left=NULL;
 								root->left->right=temp->right;
 
 								delete temp;
