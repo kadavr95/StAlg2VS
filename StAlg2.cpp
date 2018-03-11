@@ -296,15 +296,80 @@ public:
 					return false;
 			}
 			else{// root deletion
-				delete data;
+				if (!isEmpty(root)) {
 
-				return true;
+						if (root->left==NULL && root->right==NULL) {
+							Node *temp = root;
+							root=NULL;
+							this->root=NULL;
+							delete temp;
+							delete data;
+						}
+						else{
+							if (root->left==NULL || root->right==NULL) {
+								if (root->left==NULL) {
+									Node *temp = root;
+									root=root->right;
+									this->root=root;
+									delete temp;
+									delete data;
+								}
+								else{
+									Node *temp = root;
+									root=root->left;
+									this->root=root;
+									delete temp;
+									delete data;
+								}
+							}
+							else{
+								if (root->left!=NULL && root->right!=NULL) {
+									Node* currentRoot = root->right;
+									Node* previousRoot=root;
+									while (currentRoot->left!=NULL){
+										previousRoot=currentRoot;
+										currentRoot=currentRoot->left;
+									}
+									Node* temp=root;
+									root=currentRoot;
+									root->left=temp->left;
+									//if (previousRoot!=temp) {
+
+
+										if (currentRoot->right!=NULL) {
+											previousRoot->left=currentRoot->right;
+										}
+										else
+											previousRoot->left=NULL;
+									//}
+									if (previousRoot==temp) {
+										root->right=temp->right->right;
+									}
+									else
+										root->right=temp->right;
+									this->root=currentRoot;
+									temp=NULL;
+									currentRoot=NULL;
+									previousRoot=NULL;
+									delete temp;
+									delete currentRoot;
+									delete previousRoot;
+									delete data;
+								}
+							}
+						}
+						return true;
+
+
+				}
+				else
+					return false;
 			}
 		}
 	}
 
 	bool remove(int value){
-        Data *data = new Data(value);
+		Data *data = new Data(value);
 		return remove(root, data);
 
 	};
@@ -369,6 +434,7 @@ public:
 //		remove(42);
 		remove(5);
 		remove(20);
+		remove(10);
 
 //		std::cout<<searchByValue(23)<<std::endl;
 //		std::cout<<searchByValue(0)<<std::endl;
@@ -1117,7 +1183,7 @@ void aboutProgramme()//show info about the programme
 	std::cout<<"Algorithms and data structures\n";
 	std::cout<<"Practical assignment #2\n";
 	std::cout<<"Binary tree without self-balancing\n\n";
-	std::cout<<"Version 0.0.2.0 build 20180310200000\n\n";
+	std::cout<<"Version 0.0.3.0 build 20180310200000\n\n";
 	std::cout<<"Development and testing: Yaskovich Dmitry (ISBO-05-15)\n\n";
 	std::cout<<"Dimini Inc, 2018";
 }
