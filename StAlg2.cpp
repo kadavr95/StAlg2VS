@@ -155,6 +155,8 @@ public:
 	};
 
 	bool remove(Node *root, Data *data){
+		if (!isEmpty(root)) {
+
 		if (root->data->getKey()>data->getKey()) {
 			if (!isEmpty(root->left)) {
 				if (root->left->data->getKey()==data->getKey()) {
@@ -173,8 +175,8 @@ public:
 								delete data;
 							}
 							else{
-								Node *temp = root->right;
-								root->right=root->right->left;
+								Node *temp = root->left;
+								root->left=root->left->left;
 								delete temp;
 								delete data;
 							}
@@ -366,6 +368,7 @@ public:
 					return false;
 			}
 		}
+		}
 	}
 
 	bool remove(int value){
@@ -430,11 +433,31 @@ public:
 		insert(3);
 		insert(7);
 		insert(9);
+
+		remove(10);
+		remove(5);
+		remove(15);
+		remove(12);
+		remove(20);
+		inOrderPrint();
+		remove(4);
+		inOrderPrint();
+		remove(8);
+		remove(16);
+		remove(23);
+		remove(42);
+		remove(108);
+		remove(23);
+		remove(5);
+		remove(10);
+		remove(3);
+		remove(7);
+		remove(9);
 //		remove(4);
 //		remove(42);
-		remove(5);
-		remove(20);
-		remove(10);
+//		remove(5);
+//		remove(20);
+//		remove(10);
 
 //		std::cout<<searchByValue(23)<<std::endl;
 //		std::cout<<searchByValue(0)<<std::endl;
