@@ -112,11 +112,13 @@ private:
 		inOrderPrintDOT(root->right);
 	}
 
-	void rotateLeft(){
+	void rotateLeft(currentRoot){
+
 	}
 
 	void rotateRight(){
 	}
+
 
 
 	void countElements(Node* root, int &quantity){
@@ -498,6 +500,18 @@ public:
 	}
 
 	bool balanceTree(){
+		if ((countElements(root,0)+1)!=0 && ((countElements(root,0)+1) & ((countElements(root,0)))) == 0){
+
+
+		//currentRoot=root;
+		convertToVine(root);
+
+
+		convertToTree(root);
+		return true;
+		}
+		else
+			return false;
 	}
 
 
