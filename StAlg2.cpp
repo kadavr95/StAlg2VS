@@ -439,9 +439,9 @@ public:
 		remove(15);
 		remove(12);
 		remove(20);
-		inOrderPrint();
+		//inOrderPrint();
 		remove(4);
-		inOrderPrint();
+		//inOrderPrint();
 		remove(8);
 		remove(16);
 		remove(23);
@@ -452,6 +452,7 @@ public:
 		remove(10);
 		remove(3);
 		remove(7);
+		remove(9);
 		remove(9);
 //		remove(4);
 //		remove(42);
@@ -472,6 +473,18 @@ public:
 		//Node *n = new Node(new Data(15));
 		//n->value = 15;
 		//root->right = n;
+	}
+
+	void rotateLeft(){
+	}
+
+	void rotateRight(){
+	}
+
+	bool balanceTree(){
+	}
+
+	int countElements(){
 	}
 
 	void inOrderPrint(){
