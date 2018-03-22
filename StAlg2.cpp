@@ -111,6 +111,23 @@ private:
 		root->printDOT();
 		inOrderPrintDOT(root->right);
 	}
+
+	void rotateLeft(){
+	}
+
+	void rotateRight(){
+	}
+
+
+	void countElements(Node* root, int &quantity){
+        if (isEmpty(root))
+			return;
+		countElements(root->left, quantity);
+		quantity++;
+		countElements(root->right, quantity);
+		//return quantity++;
+	}
+
 public:
 	BinaryTree(){
 		root = NULL;
@@ -416,6 +433,7 @@ public:
 
 	void createFakeTree(){
 		root = new Node(new Data(10));
+		int quantity=0;
 		//root->value = 10;
 		insert(5);
 		insert(15);
@@ -433,6 +451,9 @@ public:
 		insert(3);
 		insert(7);
 		insert(9);
+
+		countElements(root,quantity);
+		std::cout<<"counter"<<quantity<<std::endl;
 
 		remove(10);
 		remove(5);
@@ -454,6 +475,7 @@ public:
 		remove(7);
 		remove(9);
 		remove(9);
+
 //		remove(4);
 //		remove(42);
 //		remove(5);
@@ -475,17 +497,10 @@ public:
 		//root->right = n;
 	}
 
-	void rotateLeft(){
-	}
-
-	void rotateRight(){
-	}
-
 	bool balanceTree(){
 	}
 
-	int countElements(){
-	}
+
 
 	void inOrderPrint(){
 		inOrderPrint(root);
