@@ -8,6 +8,8 @@
 #include <stdlib.h>//random
 #include <time.h>//time
 #include <string>//strings
+#include <math.h>
+#include <system>
 
 class Data{//class of tree nodes' data
 private:
@@ -212,6 +214,18 @@ private:
 	}
 
 	void convertToTree(Node *currentNode){
+		int quantity;
+		Node *preRoot=NULL, *currentRoot=root;
+		countElements(root,quantity);
+		for (int i=1; i < (int)log2(quantity+1); i++) {
+		rotateRight(root,root);
+			for(int j=1; j<pow(2,(int)log2(quantity+1)-i)-1;j++){
+				preRoot=currentRoot;
+				currentRoot=currentRoot->left;
+				rotateRight(preRoot,currentRoot);
+			}
+
+		}
 	}
 
 
