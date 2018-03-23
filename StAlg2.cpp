@@ -115,14 +115,15 @@ private:
 	void rotateLeft(Node* preRoot, Node* currentRoot){
 		if (currentRoot==root) {
 		   Node *temp=currentRoot->right->left;
+		   this->root=currentRoot->right;
 		   currentRoot->right->left=currentRoot;
 		   currentRoot->right=temp;
-		   root=currentRoot;
-		   delete temp;
+
+		   //delete temp;
 		}
 		else{
 		   Node *temp=currentRoot->right->left;
-		   if (preRoot->left=currentRoot) {
+		   if (preRoot->left==currentRoot) {
 			   preRoot->left=currentRoot->right;
 		   }
 		   else{
@@ -132,18 +133,85 @@ private:
 		   currentRoot->right=temp;
 
 
-		   delete temp;
+		   //delete temp;
 		}
 
 	}
 
-	void rotateRight(){
+	void rotateRight(Node* preRoot, Node* currentRoot){
+		if (currentRoot==root) {
+		   Node *temp=currentRoot->left->right;
+		   this->root=currentRoot->left;
+		   currentRoot->left->right=currentRoot;
+		   currentRoot->left=temp;
+
+		   //delete temp;
+		}
+		else{
+		   Node *temp=currentRoot->left->right;
+		   if (preRoot->right==currentRoot) {
+			   preRoot->right=currentRoot->left;
+		   }
+		   else{
+			   preRoot->left=currentRoot->left;
+		   }
+		   currentRoot->left->right=currentRoot;
+		   currentRoot->left=temp;
+
+
+		   //delete temp;
+		}
+
 	}
 
-	void convertToVine(){
+	void convertToVine(Node *currentNode){
+		if (!isEmpty(root->right)) {
+
+
+		while (!isEmpty(root->right))
+		{
+
+		   rotateLeft(root, root);
+//		   std::cout<<"aaaa"<<std::endl;
+//		   inOrderPrintDOT(root);
+//		   std::cout<<"bbbb"<<std::endl;
+
+//		   if (roo) {
+//
+//		   }
+		   }
+		   convertToVine(root);
+		   }
+
+		else{
+		if (!isEmpty(currentNode->left)) {
+
+
+		 while (!isEmpty(currentNode->left->right))
+		{
+
+		   rotateLeft(currentNode, currentNode->left);
+//		   std::cout<<"aaaa"<<std::endl;
+//		   inOrderPrintDOT(root);
+//		   std::cout<<"bbbb"<<std::endl;
+
+//		   if (roo) {
+//
+//		   }
+		   }
+
+		convertToVine(currentNode->left);
+		}
+		}
+//		if (!isEmpty(currentNode->left)) {
+//
+//
+//		convertToVine(currentNode->left);
+//		}
+		return;
 	}
 
-	void convertToTree(){
+	void convertToTree(Node *currentNode){
 	}
 
 
@@ -480,30 +548,34 @@ public:
 		insert(3);
 		insert(7);
 		insert(9);
+		insert(41);
 
-		countElements(root,quantity);
-		std::cout<<"counter"<<quantity<<std::endl;
+//		countElements(root,quantity);
+//		std::cout<<"counter"<<quantity<<std::endl;
 
-		remove(10);
-		remove(5);
-		remove(15);
-		remove(12);
-		remove(20);
-		//inOrderPrint();
-		remove(4);
-		//inOrderPrint();
-		remove(8);
-		remove(16);
-		remove(23);
-		remove(42);
-		remove(108);
-		remove(23);
-		remove(5);
-		remove(10);
-		remove(3);
-		remove(7);
-		remove(9);
-		remove(9);
+//		remove(10);
+//		remove(5);
+//		remove(15);
+//		remove(12);
+//		remove(20);
+//		//inOrderPrint();
+//		remove(4);
+//		//inOrderPrint();
+//		remove(8);
+//		remove(16);
+//		remove(23);
+//		remove(42);
+//		remove(108);
+//		remove(23);
+//		remove(5);
+//		remove(10);
+//		remove(3);
+//		remove(7);
+//		remove(9);
+//		remove(9);
+
+		balanceTree();
+	   //rotateLeft(root,root);
 
 //		remove(4);
 //		remove(42);
@@ -533,10 +605,10 @@ public:
 
 
 		//currentRoot=root;
-		//convertToVine(root);
+		convertToVine(root);
 
 
-		//convertToTree(root);
+		convertToTree(root);
 		return true;
 		}
 		else
