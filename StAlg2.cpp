@@ -112,11 +112,38 @@ private:
 		inOrderPrintDOT(root->right);
 	}
 
-	void rotateLeft(currentRoot){
+	void rotateLeft(Node* preRoot, Node* currentRoot){
+		if (currentRoot==root) {
+		   Node *temp=currentRoot->right->left;
+		   currentRoot->right->left=currentRoot;
+		   currentRoot->right=temp;
+		   root=currentRoot;
+		   delete temp;
+		}
+		else{
+		   Node *temp=currentRoot->right->left;
+		   if (preRoot->left=currentRoot) {
+			   preRoot->left=currentRoot->right;
+		   }
+		   else{
+			   preRoot->right=currentRoot->right;
+		   }
+		   currentRoot->right->left=currentRoot;
+		   currentRoot->right=temp;
+
+
+		   delete temp;
+		}
 
 	}
 
 	void rotateRight(){
+	}
+
+	void convertToVine(){
+	}
+
+	void convertToTree(){
 	}
 
 
@@ -500,14 +527,16 @@ public:
 	}
 
 	bool balanceTree(){
-		if ((countElements(root,0)+1)!=0 && ((countElements(root,0)+1) & ((countElements(root,0)))) == 0){
+		int quantity=0;
+		countElements(root,quantity);
+		if ((quantity+1)!=0 && ((quantity+1) & (quantity)) == 0){
 
 
 		//currentRoot=root;
-		convertToVine(root);
+		//convertToVine(root);
 
 
-		convertToTree(root);
+		//convertToTree(root);
 		return true;
 		}
 		else
